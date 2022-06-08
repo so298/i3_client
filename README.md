@@ -1,17 +1,3 @@
-# References
-- https://developer.mozilla.org/ja/docs/Web/API/WebRTC_API/Protocols
-- https://qiita.com/yuyake0084/items/cc6baa6e69498753346a
-- https://webrtc.org/
-- https://codelabs.developers.google.com/codelabs/webrtc-web/
-- https://github.com/macinjoke/react-webrtc-sample
-- https://qiita.com/massie_g/items/f5baf316652bbc6fcef1
-- https://html5experts.jp/mganeko/19814/
-
-## 手動シグナリングで詰まったところ
-- onicecandidateでiceの収集が終了する前にcreateOfferをしてしまっていたので通信が成功しなかった
-  - とりあえずは２回createOfferを行えば解決
-  - trickle ICEのほうがいい？
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
