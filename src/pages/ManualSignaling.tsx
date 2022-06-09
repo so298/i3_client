@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
+import { rtcConfig } from "../constants/constants";
+
 function ManualSignaling() {
   const [peerConnection, setPeerConnection] =
     useState<RTCPeerConnection | null>(null);
@@ -9,10 +11,6 @@ function ManualSignaling() {
 
   const sdpRemoteTextRef = useRef<HTMLTextAreaElement>(null);
   const sdpLocalTextRef = useRef<HTMLTextAreaElement>(null);
-
-  const rtcConfig: RTCConfiguration = {
-    iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-  };
 
   useEffect(() => {
     (async () => {
@@ -64,7 +62,7 @@ function ManualSignaling() {
           if (!newPeerConnection.remoteDescription) {
             console.log("ice offer");
             newPeerConnection.createOffer().then((description) => {
-              console.log(description)
+              console.log(description);
               newPeerConnection.setLocalDescription(description);
               sendSDP(description);
             });
