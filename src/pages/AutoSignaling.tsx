@@ -146,7 +146,7 @@ const AutoSignaling = () => {
   /** set WebCam video stream */
   const addVideoStream = async () => {
     localStreamRef.current = await navigator.mediaDevices.getUserMedia({
-      video: true,A
+      video: true,
     });
     if (localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current;
