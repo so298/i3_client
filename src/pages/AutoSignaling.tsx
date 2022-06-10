@@ -1,4 +1,3 @@
-import { channel } from "diagnostics_channel";
 import { Channel, Socket } from "phoenix";
 import { useEffect, useState, useRef } from "react";
 
