@@ -5,7 +5,6 @@ import { useEffect, useState, useRef } from "react";
 import { rtcConfig } from "../constants/constants";
 import { CandDataType, DescriptionInitType, UserType } from "../types/rtcTypes";
 import {
-  sendSDP,
   createOffer,
   setOffer,
   createAnswer,
@@ -26,20 +25,23 @@ const AutoSignaling = () => {
   const sdpRemoteTextRef = useRef<HTMLTextAreaElement>(null);
   const sdpLocalTextRef = useRef<HTMLTextAreaElement>(null);
 
-  const url = "ws://157.82.202.235:4000/socket";
+  const url = process.env.REACT_APP_DEV_SOCKET_ADDRESS as string;
 
   useEffect(() => {
     addVideoStream();
 
     const newSocket = new Socket(url);
     newSocket.connect();
-    const newChannel = newSocket.channel("room:lobby");
+    const newChannel = newSocket.channel("room:lobby", {
+      name: "hoge",
+      id: "hogehoge",
+    });
 
     newChannel
       .join()
-      .receive("ok", (res: {me: UserType}) => {
+      .receive("ok", (res: { me: UserType }) => {
         console.log("[WEBSOCKET] create channel");
-        console.log(res.me);
+        console.log(res);
         setUser(res.me);
         const newPeerConnection = new RTCPeerConnection(rtcConfig);
         setPeerConnection(newPeerConnection);
@@ -111,7 +113,7 @@ const AutoSignaling = () => {
       const description = descriptionData.description;
       if (descriptionData.userId === me.id) {
         console.log("[ON RECIEVE SDP]got data from me");
-        console.log(me.id)
+        console.log(me.id);
         console.log(description.type);
       } else {
         if (description.type === "offer") {
@@ -128,7 +130,7 @@ const AutoSignaling = () => {
     });
 
     channel.on("ice", (data: CandDataType) => {
-      if (data.userId != me.id) {
+      if (data.userId !== me.id) {
         console.log("[ICE] recieved remote candidate data");
         connection
           .addIceCandidate(data.candidate)
@@ -144,10 +146,8 @@ const AutoSignaling = () => {
   /** set WebCam video stream */
   const addVideoStream = async () => {
     localStreamRef.current = await navigator.mediaDevices.getUserMedia({
-      video: true,
+      video: true,A
     });
-    console.log("local stream");
-    console.log(localStreamRef.current);
     if (localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current;
     }
@@ -156,13 +156,19 @@ const AutoSignaling = () => {
   return (
     <div className="App">
       <div>
-        <p>id</p>
-        <input></input>
+        <p>id:{user?.id.slice(10)}</p>
       </div>
       <video style={{ width: 400 }} ref={localVideoRef} autoPlay playsInline />
       <video style={{ width: 400 }} ref={remoteVideoRef} autoPlay playsInline />
       <br />
       <div>
+        <button
+          onClick={() => {
+            channel?.push("room", {}).receive("ok", (res) => console.log(res));
+          }}
+        >
+          get users
+        </button>
         <button onClick={callAction}>Call</button>
         <button onClick={() => console.log(channel)}>show info</button>
       </div>
