@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type CandDataType = {
   userId: string;
   candidate: RTCIceCandidate;
@@ -23,4 +25,9 @@ export type DescriptionInitType = {
 export type JoinResponseType = {
   me: UserType;
   room: RoomType;
+};
+
+export type PeerType = {
+  connection: RTCPeerConnection;
+  stream: MediaStream | undefined;
 };

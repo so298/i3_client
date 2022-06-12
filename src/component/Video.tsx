@@ -5,14 +5,20 @@ export const Video: FC<{ stream: MediaStream; id: string }> = ({
   id,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
+
+  const addStream = () => {
     if (videoRef.current) videoRef.current.srcObject = stream;
+  };
+
+  useEffect(() => {
+    addStream();
   }, []);
   return (
     <div>
       <video style={{ width: 400 }} ref={videoRef} autoPlay playsInline />
       <br />
       id = {id}
+      <button onClick={addStream}>add stream</button>
     </div>
   );
 };
