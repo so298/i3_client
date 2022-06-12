@@ -1,6 +1,7 @@
 export type CandDataType = {
   userId: string;
   candidate: RTCIceCandidate;
+  destinationId: string;
 };
 
 export type UserType = {
@@ -8,7 +9,18 @@ export type UserType = {
   name: string;
 };
 
+export type RoomType = {
+  id: string;
+  users: UserType[];
+};
+
 export type DescriptionInitType = {
   userId: string;
   description: RTCSessionDescriptionInit;
+  destinationId: string;
+};
+
+export type JoinResponseType = {
+  me: UserType;
+  room: RoomType;
 };

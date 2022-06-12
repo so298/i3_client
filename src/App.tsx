@@ -1,15 +1,14 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import ManualSignaling from "./pages/ManualSignaling";
-import AutoSignaling from "./pages/AutoSignaling";
+import Main from "./pages/Main";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<AutoSignaling />} />
+          <Route path={"/"} element={<Main />} />
           <Route path={"/manual"} element={<ManualSignaling />} />
-          <Route path={"/auto"} element={<AutoSignaling />} />
         </Routes>
       </BrowserRouter>
     </div>
