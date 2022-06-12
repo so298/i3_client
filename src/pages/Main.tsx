@@ -28,6 +28,8 @@ const Main = () => {
   const [peerConnections, setPeerConnections] = useState<RTCPeerConnection[]>(
     []
   );
+
+  const videoStreamRefs = useRef<HTMLVideoElement[]>([]);
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const [remoteVideoStreams, setRemoteVideoStreams] = useState<
     { stream: MediaStream; id: string }[]

@@ -10,9 +10,9 @@ export const Video: FC<{ stream: MediaStream; id: string }> = ({
   }, []);
   return (
     <div>
-      id = {id}
-      <br />
       <video style={{ width: 400 }} ref={videoRef} autoPlay playsInline />
+      <br />
+      id = {id}
     </div>
   );
 };
